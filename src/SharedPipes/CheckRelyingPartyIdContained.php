@@ -36,6 +36,12 @@ abstract class CheckRelyingPartyIdContained
      */
     public function handle(AttestationValidation|AssertionValidation $validation, Closure $next): mixed
     {
+        $additionalAllowedOrigins = $this->config->get('webauthn.additional_allowed_origins');
+
+        if (is_array($additionalAllowedOrigins) && in_array($validation->clientDataJson->origin, $additionalAllowedOrigins)) {
+            return $next($validation);
+        }
+
         if (! $host = parse_url($validation->clientDataJson->origin, PHP_URL_HOST)) {
             static::throw($validation, 'Relying Party ID is invalid.');
         }

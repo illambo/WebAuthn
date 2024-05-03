@@ -683,7 +683,8 @@ return [
         'bytes' => 16,
         'timeout' => 60,
         'key' => '_webauthn',
-    ]
+    ],
+    'additional_allowed_origins' => explode(',', env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS', '')),
 ];
 ```
 
@@ -727,6 +728,17 @@ return [
 ```
 
 The outgoing challenges are random string of bytes. This controls how many bytes, the seconds which the challenge is valid, and the session key used to store the challenge while its being resolved by the device.
+
+### Origins
+
+```php
+return [
+    'additional_allowed_origins' => explode(',', env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS', '')),
+];
+```
+
+The _additional_allowed_origins_ allows the extension of the allowed origins, useful in case of mobile native implementation (especially android).
+
 
 ## Laravel UI, Jetstream, Fortify, Sanctum, Breeze, Inertia and Livewire
 

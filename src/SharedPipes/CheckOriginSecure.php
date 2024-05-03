@@ -30,6 +30,12 @@ abstract class CheckOriginSecure
             static::throw($validation, 'Response has an empty origin.');
         }
 
+        $additionalAllowedOrigins = $this->config->get('webauthn.additional_allowed_origins');
+
+        if (is_array($additionalAllowedOrigins) && in_array($validation->clientDataJson->origin, $additionalAllowedOrigins)) {
+            return $next($validation);
+        }
+
         $origin = parse_url($validation->clientDataJson->origin);
 
         if (! $origin || ! isset($origin['host'], $origin['scheme'])) {

@@ -36,4 +36,16 @@ return [
         'timeout' => 60,
         'key' => '_webauthn',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Origins
+    |--------------------------------------------------------------------------
+    |
+    | This option allows the extension of the allowed origins, useful in case
+    | of mobile native implementation (especially android).
+    |
+    */
+
+    'additional_allowed_origins' => explode(',', env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS', '')),
 ];

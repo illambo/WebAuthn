@@ -532,6 +532,11 @@ class ValidationTest extends DatabaseTestCase
         $this->validate();
     }
 
+    public function test_check_origin_pass_if_in_additional_allowed_origins(): void
+    {
+        $this->markTestIncomplete();
+    }
+
     public function test_rp_id_fails_if_empty(): void
     {
         $invalid = FakeAuthenticator::attestationResponse();

@@ -202,4 +202,16 @@ class CreatorTest extends DatabaseTestCase
                 return $challenge->data->hashEqual('1');
             });
     }
+
+    public function test_uses_config_relying_party_id(): void
+    {
+        $rpId = 'foo.bar';
+
+        config(['webauthn.relying_party.id' => $rpId]);
+
+        $this->response()
+            ->assertJson([
+                'rpId' => $rpId,
+            ]);
+    }
 }
