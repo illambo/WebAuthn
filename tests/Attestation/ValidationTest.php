@@ -534,7 +534,24 @@ class ValidationTest extends DatabaseTestCase
 
     public function test_check_origin_pass_if_in_additional_allowed_origins(): void
     {
-        $this->markTestIncomplete();
+        $origin = 'android:apk-key-fake';
+
+        config(['webauthn.additional_allowed_origins' => [$origin]]);
+
+        $valid = FakeAuthenticator::attestationResponse();
+
+        $valid['response']['clientDataJSON'] = base64_encode(
+            json_encode([
+                'type' => 'webauthn.create', 'origin' => $origin,
+                'challenge' => FakeAuthenticator::ATTESTATION_CHALLENGE,
+            ])
+        );
+
+        $this->validation->json = new JsonTransport($valid);
+
+        $this->validate();
+
+        $this->expectNotToPerformAssertions();
     }
 
     public function test_rp_id_fails_if_empty(): void
