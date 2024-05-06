@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Event;
 use Laragear\WebAuthn\Assertion\Validator\AssertionValidation;
 use Laragear\WebAuthn\Assertion\Validator\AssertionValidator;
 use Laragear\WebAuthn\Assertion\Validator\Pipes\CheckPublicKeyCounterCorrect;
-use Laragear\WebAuthn\Assertion\Validator\Pipes\CheckPublicKeySignature;
 use Laragear\WebAuthn\Assertion\Validator\Pipes\CheckUserInteraction;
 use Laragear\WebAuthn\Attestation\AuthenticatorData;
 use Laragear\WebAuthn\ByteBuffer;
@@ -23,7 +22,6 @@ use Laragear\WebAuthn\Exceptions\AssertionException;
 use Laragear\WebAuthn\JsonTransport;
 use Laragear\WebAuthn\Models\WebAuthnCredential;
 use Mockery;
-use Mockery\MockInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Tests\DatabaseTestCase;
@@ -497,7 +495,7 @@ class ValidationTest extends DatabaseTestCase
 
     public function test_check_origin_pass_if_in_additional_allowed_origins(): void
     {
-        $origin = 'android:apk-key-hash:fake';
+        $origin = 'android:';
 
         config(['webauthn.additional_allowed_origins' => [$origin]]);
 
