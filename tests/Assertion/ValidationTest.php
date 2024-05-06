@@ -497,7 +497,7 @@ class ValidationTest extends DatabaseTestCase
 
     public function test_check_origin_pass_if_in_additional_allowed_origins(): void
     {
-        $origin = 'android:apk-key-fake';
+        $origin = 'android:apk-key-hash:fake';
 
         config(['webauthn.additional_allowed_origins' => [$origin]]);
 
@@ -510,9 +510,6 @@ class ValidationTest extends DatabaseTestCase
         );
 
         $this->validation->json = new JsonTransport($valid);
-
-        // note: in order to reuse FakeAuthenticator we mock CheckPublicKeySignature@validateWithOpenSsl method
-        $this->partialMock(CheckPublicKeySignature::class, fn (MockInterface $mock) => $mock->shouldAllowMockingProtectedMethods()->shouldReceive('validateWithOpenSsl'));
 
         $this->validate();
 
