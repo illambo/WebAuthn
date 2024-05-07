@@ -534,7 +534,7 @@ class ValidationTest extends DatabaseTestCase
 
     public function test_check_origin_pass_if_in_additional_allowed_origins(): void
     {
-        $origin = 'android:apk-key-fake';
+        $origin = 'android:apk-key-hash:hlbf0LpDSuQ3UpvvmFAMc1OhrD96549OYYOkGJKxJVs';
 
         config(['webauthn.additional_allowed_origins' => [$origin]]);
 
