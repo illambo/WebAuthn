@@ -684,7 +684,8 @@ return [
         'timeout' => 60,
         'key' => '_webauthn',
     ],
-    'additional_allowed_origins' => explode(',', env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS', '')),
+    'additional_allowed_origins' => ! empty(env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS')) ?
+        explode(',', env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS')) : [],
 ];
 ```
 
@@ -733,7 +734,8 @@ The outgoing challenges are random string of bytes. This controls how many bytes
 
 ```php
 return [
-    'additional_allowed_origins' => explode(',', env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS', '')),
+    'additional_allowed_origins' => ! empty(env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS')) ?
+        explode(',', env('WEBAUTHN_ADDITIONAL_ALLOWED_ORIGINS')) : [],
 ];
 ```
 
